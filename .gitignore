@@ -1,3 +1,6 @@
 .vscode-server/
 .vscode-server/
 .config/
+.ssh/
+.bash_history
+.lesshst
