@@ -1,7 +1,6 @@
 # Sandbox Detonation Report
-
-**Analyst:** Hassaballah Adam
-**Session:** 10
+**Analyst:** Hassaballah Adam  
+**Session:** 10  
 **Purpose:** Safe malware analysis using isolated VM networking modes
 
 ---
