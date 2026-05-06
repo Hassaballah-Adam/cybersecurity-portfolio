@@ -1,8 +1,8 @@
  Security Architecture Document
 ## Titan Small Business Services — HardenedOutpost
 
-**Engineer:** Hassaballah Adam
-**Host:** ubuntu-lab
+**Engineer:** Hassaballah Adam  
+**Host:** ubuntu-lab  
 **Date:** 2026-04-24
 
 ---
