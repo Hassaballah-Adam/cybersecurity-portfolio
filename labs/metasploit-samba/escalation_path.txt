@@ -1,0 +1,4 @@
+Vulnerable Service Name: sudo /usr/bin/find (NOPASSWD misconfiguration)
+Path to Writable Folder: /home/limited_user/backups
+Exploit Method: Cron job wildcard injection via tar checkpoint flags
+Proof of Execution: euid=0(root) egid=0(root)
