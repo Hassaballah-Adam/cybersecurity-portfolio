@@ -129,3 +129,11 @@ entirely — and why?]
 during this operation.
 Example: Hydra Project. (2024). THC-Hydra: A fast and flexible
 online password cracking tool. https://github.com/vanhauser-thc/thc-hydra]
+
+---
+
+## References
+
+MITRE ATT&CK. (2023). *Hijack execution flow: MITRE ATT&CK T1574*. https://attack.mitre.org/techniques/T1574/
+
+National Institute of Standards and Technology (NIST). (2020). *Security and privacy controls for information systems and organizations* (NIST Special Publication 800-53, Revision 5). U.S. Department of Commerce. https://doi.org/10.6028/NIST.SP.800-53r5
