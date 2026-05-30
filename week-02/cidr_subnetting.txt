@@ -1,0 +1,51 @@
+# S5 Lab: IP Subnetting & CIDR Notation
+# Analyst: Hassaballah Adam
+# Date: 2026-01-20
+
+== SUBNETTING SCHEME: TitanCorp Network ==
+
+Network: 172.16.0.0/16
+Total Hosts Available: 65,534
+
+-- Subnet Allocations --
+
+VLAN 10 — Management
+  Network:    172.16.10.0/24
+  Subnet Mask: 255.255.255.0
+  Gateway:    172.16.10.1
+  Range:      172.16.10.2 – 172.16.10.254
+  Broadcast:  172.16.10.255
+  Hosts:      253
+
+VLAN 20 — Servers
+  Network:    172.16.20.0/24
+  Subnet Mask: 255.255.255.0
+  Gateway:    172.16.20.1
+  Range:      172.16.20.2 – 172.16.20.254
+  Broadcast:  172.16.20.255
+  Hosts:      253
+
+VLAN 30 — Workstations
+  Network:    172.16.30.0/23
+  Subnet Mask: 255.255.254.0
+  Gateway:    172.16.30.1
+  Range:      172.16.30.2 – 172.16.31.254
+  Broadcast:  172.16.31.255
+  Hosts:      509
+
+VLAN 40 — DMZ
+  Network:    172.16.40.0/28
+  Subnet Mask: 255.255.255.240
+  Gateway:    172.16.40.1
+  Range:      172.16.40.2 – 172.16.40.14
+  Broadcast:  172.16.40.15
+  Hosts:      13
+
+== CIDR CALCULATIONS ==
+/24 = 256 addresses, 254 usable
+/28 = 16 addresses, 14 usable
+/23 = 512 addresses, 510 usable
+
+== SUMMARY ==
+Subnetting isolates traffic by function. DMZ uses /28 to minimize exposure.
+Management VLAN restricted to authorized administrators only.

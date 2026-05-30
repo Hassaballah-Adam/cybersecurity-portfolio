@@ -1,0 +1,48 @@
+# S14 Lab: Group Policy & Access Control Enforcement Audit
+# Analyst: Hassaballah Adam
+# Date: 2026-02-11
+
+== GPO AUDIT REPORT: TitanCorp Domain ==
+Domain: titan.local
+DC: dc01.titan.local
+Audit Date: 2026-02-11
+
+== GPOs ENUMERATED ==
+
+1. Default Domain Policy
+   Linked To: titan.local
+   Status: Enabled
+   Key Settings:
+     - Minimum password length: 12
+     - Password complexity: Enabled
+     - Account lockout threshold: 5 attempts
+     - Lockout duration: 30 minutes
+
+2. Engineer Workstation Policy
+   Linked To: OU=Engineers,OU=Staff,DC=titan,DC=local
+   Status: Enabled
+   Key Settings:
+     - USB storage: Disabled
+     - Windows Firewall: Enabled (all profiles)
+     - Remote Desktop: Disabled
+     - Audit logon events: Success and Failure
+
+3. Server Hardening Policy
+   Linked To: OU=Servers,DC=titan,DC=local
+   Status: Enabled
+   Key Settings:
+     - NTLMv1: Disabled
+     - SMBv1: Disabled
+     - Anonymous SID enumeration: Blocked
+     - Interactive logon: Require smart card
+
+== FINDINGS ==
+[!] 2 workstations not receiving Engineer Workstation Policy — check WMI filter
+[+] Password policy meets NIST SP 800-63B baseline
+[+] SMBv1 disabled domain-wide — EternalBlue mitigated
+[!] Audit policy not enforced on legacy OU — recommend GPO linking update
+
+== RECOMMENDATIONS ==
+1. Fix WMI filter for Engineer Workstation Policy
+2. Extend audit policy to legacy OU
+3. Enable LAPS for local administrator password management

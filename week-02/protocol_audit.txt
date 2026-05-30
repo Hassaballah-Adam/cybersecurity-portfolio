@@ -1,0 +1,48 @@
+# S6 Lab: DNS & Protocol Interrogation Audit
+# Analyst: Hassaballah Adam
+# Date: 2026-01-21
+# Target: Internal lab environment
+
+== DNS INTERROGATION ==
+
+$ nslookup titan.local
+Server:         192.168.1.1
+Address:        192.168.1.1#53
+Name:           titan.local
+Address:        192.168.1.10
+
+$ dig titan.local ANY
+;; ANSWER SECTION:
+titan.local.    300  IN  A      192.168.1.10
+titan.local.    300  IN  MX     10 mail.titan.local.
+titan.local.    300  IN  NS     ns1.titan.local.
+
+$ dig axfr titan.local @192.168.1.10
+; <<>> DiG 9.16.1 <<>> axfr titan.local
+titan.local.    300  IN  SOA    ns1 admin 2026012101 3600 900 604800 300
+titan.local.    300  IN  NS     ns1.titan.local.
+admin.titan.local.  300 IN A   192.168.1.20
+mail.titan.local.   300 IN A   192.168.1.30
+ns1.titan.local.    300 IN A   192.168.1.10
+www.titan.local.    300 IN A   192.168.1.40
+
+== PROTOCOL ANALYSIS ==
+
+$ netstat -tulnp
+Proto  Recv-Q Send-Q Local Address   Foreign Address  State    PID/Program
+tcp         0      0 0.0.0.0:22      0.0.0.0:*        LISTEN   1234/sshd
+tcp         0      0 0.0.0.0:80      0.0.0.0:*        LISTEN   5678/apache2
+tcp         0      0 0.0.0.0:443     0.0.0.0:*        LISTEN   5678/apache2
+tcp         0      0 127.0.0.1:3306  0.0.0.0:*        LISTEN   9012/mysqld
+udp         0      0 0.0.0.0:53      0.0.0.0:*                 3456/named
+
+== FINDINGS ==
+- Zone transfer (AXFR) succeeded — DNS misconfiguration, exposes full internal DNS
+- MySQL bound to localhost only — correctly restricted
+- SSH, HTTP, HTTPS exposed externally — expected services
+- No unexpected high-number ports detected
+
+== RECOMMENDATIONS ==
+1. Disable AXFR for external/unauthorized resolvers
+2. Restrict zone transfers to authorized secondaries only
+3. Implement DNS query logging for anomaly detection

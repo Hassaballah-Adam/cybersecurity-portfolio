@@ -1,0 +1,59 @@
+<svg width="680" height="500" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Lab timeline</title>
+  <desc>Step-by-step timeline from network setup to root access.</desc>
+  <style>
+    text { font-family: Arial, sans-serif; fill: #1a1a1a; }
+    .th { font-size: 14px; font-weight: 600; }
+    .ts { font-size: 12px; fill: #555; }
+  </style>
+
+  <!-- Vertical spine -->
+  <line x1="120" y1="50" x2="120" y2="470" stroke="#ccc" stroke-width="1"/>
+
+  <!-- Step 1 -->
+  <circle cx="120" cy="70" r="14" fill="#f0ede4" stroke="#aaa" stroke-width="1"/>
+  <text font-family="Arial" font-size="13" font-weight="600" x="120" y="75" text-anchor="middle" fill="#555">1</text>
+  <rect x="148" y="50" width="490" height="44" rx="8" fill="#f5f5f0" stroke="#ccc" stroke-width="0.8"/>
+  <text class="th" x="164" y="70">Network discovery</text>
+  <text class="ts" x="164" y="86">nmap -sn 192.168.64.0/24 — found attacker only (no target yet)</text>
+
+  <!-- Step 2 -->
+  <line x1="120" y1="84" x2="120" y2="126" stroke="#ccc" stroke-width="1"/>
+  <circle cx="120" cy="140" r="14" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text font-family="Arial" font-size="13" font-weight="600" x="120" y="145" text-anchor="middle" fill="#854F0B">2</text>
+  <rect x="148" y="120" width="490" height="44" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.8"/>
+  <text class="th" x="164" y="140" fill="#633806">Metasploitable 2 deployed</text>
+  <text class="ts" x="164" y="156" fill="#854F0B">Imported .vmdk into UTM, set Shared Network — target appeared at .64.6</text>
+
+  <!-- Step 3 -->
+  <line x1="120" y1="154" x2="120" y2="196" stroke="#ccc" stroke-width="1"/>
+  <circle cx="120" cy="210" r="14" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text font-family="Arial" font-size="13" font-weight="600" x="120" y="215" text-anchor="middle" fill="#534AB7">3</text>
+  <rect x="148" y="190" width="490" height="44" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.8"/>
+  <text class="th" x="164" y="210" fill="#3C3489">Service enumeration</text>
+  <text class="ts" x="164" y="226" fill="#534AB7">SMB version scan + TCP port scan — confirmed Samba on 139/445</text>
+
+  <!-- Step 4 -->
+  <line x1="120" y1="224" x2="120" y2="266" stroke="#ccc" stroke-width="1"/>
+  <circle cx="120" cy="280" r="14" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text font-family="Arial" font-size="13" font-weight="600" x="120" y="285" text-anchor="middle" fill="#534AB7">4</text>
+  <rect x="148" y="260" width="490" height="44" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.8"/>
+  <text class="th" x="164" y="280" fill="#3C3489">Exploit launched</text>
+  <text class="ts" x="164" y="296" fill="#534AB7">usermap_script with cmd/unix/bind_netcat payload on port 445</text>
+
+  <!-- Step 5 -->
+  <line x1="120" y1="294" x2="120" y2="336" stroke="#ccc" stroke-width="1"/>
+  <circle cx="120" cy="350" r="14" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text font-family="Arial" font-size="13" font-weight="600" x="120" y="355" text-anchor="middle" fill="#0F6E56">5</text>
+  <rect x="148" y="330" width="490" height="44" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+  <text class="th" x="164" y="350" fill="#085041">Shell session opened</text>
+  <text class="ts" x="164" y="366" fill="#0F6E56">Command shell session 1 — 192.168.64.5:46555 → 192.168.64.6:4444</text>
+
+  <!-- Step 6 -->
+  <line x1="120" y1="364" x2="120" y2="406" stroke="#ccc" stroke-width="1"/>
+  <circle cx="120" cy="420" r="14" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+  <text font-family="Arial" font-size="13" font-weight="600" x="120" y="425" text-anchor="middle" fill="#0F6E56">6</text>
+  <rect x="148" y="400" width="490" height="44" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+  <text class="th" x="164" y="420" fill="#085041">Root confirmed</text>
+  <text class="ts" x="164" y="436" fill="#0F6E56">whoami → root — full system compromise achieved</text>
+</svg>

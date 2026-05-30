@@ -1,0 +1,6 @@
+FROM scratch
+COPY sh /bin/sh
+COPY sleep /bin/sleep
+COPY lib/libc.so.6 /lib/aarch64-linux-gnu/libc.so.6
+COPY lib/ld-linux-aarch64.so.1 /lib/ld-linux-aarch64.so.1
+CMD ["/bin/sh", "-c", "while true; do sleep 3600; done"]

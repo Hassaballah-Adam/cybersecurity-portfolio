@@ -1,0 +1,40 @@
+# S15 Lab: Linux-Windows Domain Join & Identity Unification
+# Analyst: Hassaballah Adam
+# Date: 2026-02-12
+# Note: unified_identity.png captured during live lab session
+
+== LAB SUMMARY ==
+
+Objective: Join Ubuntu 22.04 server to titan.local Active Directory domain
+using SSSD and Realmd for unified identity management.
+
+== COMMANDS EXECUTED ==
+
+# Install required packages
+sudo apt install -y realmd sssd sssd-tools adcli
+
+# Discover domain
+realm discover titan.local
+
+# Join domain
+sudo realm join --user=Administrator titan.local
+
+# Verify join
+realm list
+
+# Test AD authentication
+id achen@titan.local
+
+# Configure sudo access for domain admins
+echo "%domain\ admins@titan.local ALL=(ALL) ALL" >> /etc/sudoers.d/domain-admins
+
+== RESULT ==
+Ubuntu server successfully joined to titan.local domain.
+Domain users can authenticate via SSH using AD credentials.
+Home directories auto-created on first login via pam_mkhomedir.
+
+== SCREENSHOT ==
+unified_identity.png shows:
+- realm list output confirming domain join
+- id command output for domain user
+- /etc/sssd/sssd.conf configuration

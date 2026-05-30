@@ -1,0 +1,42 @@
+# S4 Lab: Wireshark TLS Handshake Analysis
+# Analyst: Hassaballah Adam
+# Date: 2026-01-19
+
+== TLS HANDSHAKE CAPTURE ANALYSIS ==
+
+Filter applied: ssl || tls
+Capture interface: eth0
+
+-- Handshake Steps Observed --
+
+1. CLIENT HELLO (Frame 1)
+   Source: 192.168.1.50
+   Destination: 93.184.216.34 (example.com)
+   TLS Version: TLS 1.3
+   Cipher Suites offered:
+     - TLS_AES_256_GCM_SHA384
+     - TLS_CHACHA20_POLY1305_SHA256
+     - TLS_AES_128_GCM_SHA256
+   Extensions: SNI=example.com, supported_versions, key_share
+
+2. SERVER HELLO (Frame 3)
+   Source: 93.184.216.34
+   Destination: 192.168.1.50
+   Selected Cipher: TLS_AES_256_GCM_SHA384
+   Key Share: x25519
+
+3. ENCRYPTED EXTENSIONS (Frame 4)
+   Certificate presented (encrypted in TLS 1.3)
+
+4. FINISHED (Frame 6)
+   Handshake complete — session keys derived
+
+== OBSERVATIONS ==
+- TLS 1.3 negotiated successfully — secure
+- No TLS 1.0 or 1.1 fallback observed
+- Certificate validation: passed
+- Perfect Forward Secrecy confirmed via ephemeral key exchange (x25519)
+
+== SECURITY NOTES ==
+TLS 1.3 eliminates RSA key exchange, enforcing forward secrecy by default.
+Older cipher suites (RC4, 3DES) not offered — hardened client configuration.

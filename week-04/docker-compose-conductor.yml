@@ -1,0 +1,59 @@
+# S12 Lab: The Conductor & the Fleet — Docker Compose Deployment
+# Analyst: Hassaballah Adam
+# Date: 2026-02-05
+
+version: '3.8'
+
+services:
+  conductor:
+    image: nginx:alpine
+    container_name: conductor
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - frontend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  fleet-alpha:
+    image: python:3.11-slim
+    container_name: fleet-alpha
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    networks:
+      - frontend
+      - backend
+    restart: unless-stopped
+    environment:
+      - APP_ENV=production
+      - DB_HOST=fleet-db
+
+  fleet-db:
+    image: postgres:15-alpine
+    container_name: fleet-db
+    networks:
+      - backend
+    environment:
+      - POSTGRES_DB=fleetdb
+      - POSTGRES_USER=fleetuser
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true
+
+volumes:
+  db-data:
