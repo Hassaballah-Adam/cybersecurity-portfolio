@@ -1,0 +1,18 @@
+# Forge Final Exam Report
+# Engineer: skipy | Date: 2026-04-26
+
+## The Hunt
+find / -user root -name "*.log" 2>/dev/null
+
+## The Extraction
+sudo mv /var/log/forge_alpha.log ~/Exam_Submission/
+sudo mv /var/log/forge_beta.log ~/Exam_Submission/
+
+## The Lockdown
+sudo chmod 444 ~/Exam_Submission/forge_alpha.log
+sudo chmod 444 ~/Exam_Submission/forge_beta.log
+
+## Verification
+ls -la ~/Exam_Submission/
+# -r--r--r-- 1 root root 0 Apr 26 forge_alpha.log
+# -r--r--r-- 1 root root 0 Apr 26 forge_beta.log

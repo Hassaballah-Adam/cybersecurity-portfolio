@@ -1,0 +1,27 @@
+# Titan OSI Troubleshooting Readiness Check
+# Engineer: skipy | Date: 2026-04-26
+
+## Anomaly 1 - Layer 7: Permission Denied
+Symptom: broken_script.sh returned "Permission denied"
+Investigation: ls -la showed ---------- (zero permissions)
+Fix: chmod 755 ~/forge_v1/broken_script.sh
+Result: [+] Heartbeat Detected
+
+## Anomaly 2 - Layer 4: Port Conflict
+Symptom: docker run failed with "port is already allocated"
+Investigation: sudo ss -tlnp | grep 8080 revealed docker-proxy owning port
+Investigation: sudo docker ps identified ghost_web container
+Fix: sudo docker rm -f ghost_web
+Result: Port 8080 freed, training-web launched successfully
+
+## Anomaly 3 - Layer 3: ICMP Blocked
+Symptom: ping returns "Operation not permitted" when DENY OUT icmp rule active
+Investigation: sudo ufw status numbered to locate rule number
+Fix: sudo ufw delete [rule number]
+Result: ping -c 4 8.8.8.8 succeeds
+
+## Self Assessment
+- chmod permissions: Confident
+- Docker port conflict diagnosis: Confident
+- UFW firewall rule management: Confident
+- OSI layer identification: Confident
