@@ -1,0 +1,6 @@
+# Copy this file to terraform.tfvars and fill in your own values.
+# terraform.tfvars is gitignored — never commit your real IP or secrets.
+
+project_name     = "capstone-cloud-security"
+aws_region       = "us-east-1"
+ssh_allowed_cidr = "YOUR_IP_ADDRESS/32"   # e.g. "203.0.113.42/32" — find yours at https://checkip.amazonaws.com
